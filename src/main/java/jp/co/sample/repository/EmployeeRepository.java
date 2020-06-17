@@ -28,14 +28,14 @@ public class EmployeeRepository {
 		employee.setName(rs.getString("name"));
 		employee.setImage(rs.getString("image"));
 		employee.setGender(rs.getString("gender"));
-		employee.setHireDate(rs.getDate("hireDate"));
-		employee.setMailAddress(rs.getString("mailAddress"));
-		employee.setZipCode(rs.getString("zipCode"));
+		employee.setHireDate(rs.getDate("hire_date"));
+		employee.setMailAddress(rs.getString("mail_address"));
+		employee.setZipCode(rs.getString("zip_code"));
 		employee.setAddress(rs.getString("address"));
 		employee.setTelephone(rs.getString("telephone"));
 		employee.setSalary(rs.getInt("salary"));
 		employee.setCharacteristics(rs.getString("characteristics"));
-		employee.setDependentsCount(rs.getInt("dependentsCount"));
+		employee.setDependentsCount(rs.getInt("dependents_count"));
 		return employee;
 	};
 	/**
@@ -44,9 +44,9 @@ public class EmployeeRepository {
 	 */
 	public List<Employee> findAll(){
 		String selectsql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count"+
-	                        " "+ "FROM employees ORDER BY hire_date";
+	                        " "+ "FROM employees ORDER BY hire_date DESC";
 		List<Employee> employeeList = template.query(selectsql, EMPLOYEE_ROW_MAPPER);
-		
+		System.out.println("findAllが呼ばれた");
 		if (employeeList.isEmpty()) {
 			return null;
 		}else {
@@ -61,6 +61,7 @@ public class EmployeeRepository {
 		String sql = "SELECT * FROM employees WHERE id=:id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		Employee employee = template.queryForObject(sql, param,EMPLOYEE_ROW_MAPPER);
+		System.out.println("loadが呼ばれた");
 		return employee;
 	}
 	/**
@@ -69,6 +70,7 @@ public class EmployeeRepository {
 	public void update(Employee employee) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(employee);
 		String updatesql= "UPDATE employees SET dependents_count:dependentsCount";
+		System.out.println("updateが呼ばれた");
 		template.update(updatesql, param);
 	}
 }
