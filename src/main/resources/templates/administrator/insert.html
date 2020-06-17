@@ -30,7 +30,15 @@
 <!-- ここから上を編集する必要はありません -->
 
 <!-- ここにモックのform要素を貼り付けます -->
-
+<form action="login.html" th:action=@{/toInsert} th:object="${insertAdministratorForm}">
+氏名:<br>
+<input type="text" name="name" th:field="*{name}"><br>
+メールアドレス:<br>
+<input type="text" name="mailAddress" th:field="*{mailAddress}"><br>
+パスワード:<br>
+<input type="password" name="password" th:field="*{password}"><br>
+<button>登録</button>
+</form>
 
 <!-- ここから下を編集する必要はありません -->
 				</div>
